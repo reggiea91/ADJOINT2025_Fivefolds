@@ -1,0 +1,77 @@
+-----dim 3 check for unimod
+
+MList = {};
+IList = {};
+for q from 0 to 17 do(
+X = smoothFanoToricVariety(3,q);
+B = matrix{toSequence(rays X) };
+MList = append(MList, gens minors(3, B ) );
+for i from 0 to length MList-1 do( 
+maxMinorList = flatten entries MList#i;
+for j from 0 to length maxMinorList-1 do(
+if ( rank B != 3 or ( not isMember( maxMinorList#j, {0,1,-1}) )    ) then IList = append(IList, (i,j))
+ ) ) ;
+IList=unique IList;
+)
+
+
+---Here I get that 16/18 sm. proj. toric Fano 3-folds are unimod:
+
+AList = {};
+for i from 0 to length IList - 1 do(
+AList = append(AList, IList#i#0) )
+AList = unique AList
+length AList;
+
+
+---------------------------------------------dim 4 check for unimod
+
+MList = {};
+IList = {};
+for q from 0 to 123 do(
+X = smoothFanoToricVariety(4,q);
+B = matrix{toSequence(rays X) };
+MList = append(MList, gens minors(4, B) );
+for i from 0 to length MList-1 do( 
+maxMinorList = flatten entries MList#i;
+for j from 0 to length maxMinorList-1 do(
+if ( rank B != 4 or ( not isMember( maxMinorList#j, {0,1,-1}) )    ) then IList = append(IList, (i,j))
+ ) ) ;
+IList = unique IList;
+)
+
+
+--------dim 4 to check output for how many are unimod
+
+AList = {};
+for i from 0 to length IList - 1 do(
+AList = append(AList, IList#i#0) )
+AList = unique AList
+length AList;
+
+----^^this should give number of smooth projective toric Fano 4-folds which are not unimodular, for which I get 28? (and not 52)
+
+
+
+-----------Dimension 5 check for checking unimodularity
+
+needsPackage "NormalToricVarieties";
+MList = {};
+IList = {};
+for q from 0 to 865 do(
+X = smoothFanoToricVariety(5,q);
+B = matrix{toSequence(rays X) };
+MList = append(MList, gens minors(5, B) );
+for i from 0 to length MList-1 do( 
+maxMinorList = flatten entries MList#i;
+for j from 0 to length maxMinorList-1 do(
+if ( rank B != 5 or ( not isMember( maxMinorList#j, {0,1,-1}) )    ) then IList = append(IList, (i,j))
+ ) ) ;
+IList = unique IList;
+)
+---------Checking the output for dimension 5:
+AList = {};
+for i from 0 to length IList - 1 do(
+AList = append(AList, IList#i#0) )
+AList = unique AList
+length AList;
